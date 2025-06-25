@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+ <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Random Password Generate </title>
+    <link rel="stylesheet" href="style.css">
+ </head>
+ <body>
+    <div class="contrainer">
+        <h1>Generate a <br><span>Random Password</span></h1>
+        <div class="display">
+            <input type="text" id="password" placeholder="password">
+            <img src="images/images.png"id="copyIcon">
+        </div>
+        <button>Generate Password</button>
+    </div>
+    <script>
+  const passwordBox = document.getElementById("password");
+  const button = document.querySelector("button");
+
+  function generatePassword(length = 12) {
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+[]{}|;:,.<>?";
+    let password = "";
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      password += characters[randomIndex];
+    }
+    return password;
+  }
+
+  button.addEventListener("click", () => {
+    const newPassword = generatePassword();
+    passwordBox.value = newPassword;
+  });
+  copyIcon.addEventListener("click", () => {
+    if (passwordBox.value !== "") {
+      navigator.clipboard.writeText(passwordBox.value)
+        .then(() => {
+          alert("Mot de passe copié !");
+        })
+        .catch(err => {
+          alert("Échec de la copie : " + err);
+        });
+    } else {
+      alert("Aucun mot de passe à copier.");
+    }
+  });
+</script>
+
+ </body>
+</html>
